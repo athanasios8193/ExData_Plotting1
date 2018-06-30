@@ -3,7 +3,7 @@ fileURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_powe
 download.file(fileURL, "./data.zip")
 
 #unzip the data, read in the data and limit the number of rows to save memory
-data <- read.table(unz("data.zip", "household_power_consumption.txt"), header = TRUE, sep = ";", na.strings="NA", nrow=70000)
+data <- read.table(unz("data.zip", "household_power_consumption.txt"), header = TRUE, sep = ";", na.strings="?", nrow=70000)
 
 #subset the data based on the dates wanted
 data <- data[which(data$Date == c("1/2/2007", "2/2/2007")), ]
@@ -19,7 +19,7 @@ data[,7] <- as.numeric(levels(data[,7]))[data[,7]]
 data[,8] <- as.numeric(levels(data[,8]))[data[,8]]
 
 #initializes the png image file
-png(file="plot3.png")
+png(file="plot3.png", width=480, height = 480)
 #creates plot of the Sub Metering from 3 different sources
 plot(data[,2], data[,7], type = "l", xlab = "", ylab="Energy sub metering")
 lines(data$Time, data$Sub_metering_2, col="red")

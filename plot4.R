@@ -3,7 +3,7 @@ fileURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_powe
 download.file(fileURL, "./data.zip")
 
 #unzip the data, read in the data and limit the number of rows to save memory
-data <- read.table(unz("data.zip", "household_power_consumption.txt"), header = TRUE, sep = ";", na.strings="NA", nrow=70000)
+data <- read.table(unz("data.zip", "household_power_consumption.txt"), header = TRUE, sep = ";", na.strings="?", nrow=70000)
 
 #subset the data based on the dates wanted
 data <- data[which(data$Date == c("1/2/2007", "2/2/2007")), ]
@@ -12,7 +12,7 @@ data <- data[which(data$Date == c("1/2/2007", "2/2/2007")), ]
 data[,1] <- as.Date(data[,1], "%d/%m/%Y")
 
 #converts Time column from "factor" class to POSIXct
-data[,2] <- as.POSIXct(paste(data$Date, data$Time), formate = "%Y/%d/%m %H:%M:%S")
+data[,2] <- as.POSIXct(paste(data$Date, data$Time), format = "%Y/%d/%m %H:%M:%S")
 
 #converts necessary columns from "factor" to "numeric"
 data[,3] <- as.numeric(levels(data[,3]))[data[,3]]
@@ -22,7 +22,7 @@ data[,7] <- as.numeric(levels(data[,7]))[data[,7]]
 data[,8] <- as.numeric(levels(data[,8]))[data[,8]]
 
 #initializes the png image file
-png(file="plot4.png")
+png(file="plot4.png", width=480, height = 480)
 #sets the parameters for the plotting. a 2X2 matrix of plots, printed row by row and the margins.
 par(mfrow=c(2,2), mar = c(4,4,2,2)+.1)
 #creates the four plots
